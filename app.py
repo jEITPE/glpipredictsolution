@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory, render_template_string
 from flask_cors import CORS
 import openai
 import os
@@ -8,7 +8,7 @@ import logging
 # Carregar variáveis de ambiente
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)  # Permitir requisições do frontend
 
 # Configurar logging
@@ -155,10 +155,32 @@ RESUMO: Análise de quanto a resposta do analista se aproxima da qualidade e abo
 
 @app.route('/')
 def home():
+    """Servir a página principal HTML"""
+    try:
+        return send_from_directory('.', 'index.html')
+    except:
+        return jsonify({
+            "message": "GLPI AI - Avaliador de Respostas API",
+            "status": "online",
+            "endpoints": ["/evaluate", "/health"],
+            "note": "Coloque os arquivos index.html, styles.css, script.js e glpi.png na mesma pasta do app.py"
+        })
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    """Servir arquivos estáticos (CSS, JS, imagens)"""
+    try:
+        return send_from_directory('.', filename)
+    except:
+        return jsonify({"error": f"Arquivo {filename} não encontrado"}), 404
+
+@app.route('/api')
+def api_info():
+    """Informações da API"""
     return jsonify({
         "message": "GLPI AI - Avaliador de Respostas API",
         "status": "online",
-        "endpoints": ["/evaluate"]
+        "endpoints": ["/evaluate", "/health"]
     })
 
 @app.route('/evaluate', methods=['POST'])
@@ -237,7 +259,10 @@ if __name__ == '__main__':
         logger.error("OPENAI_API_KEY não encontrada no arquivo .env")
         exit(1)
     
-    logger.info("Iniciando GLPI AI - Avaliador de Respostas API...")
-    logger.info(f"Modelo configurado: {MODEL_NAME}")
+    logger.info("🚀 Iniciando GLPI AI - Avaliador de Respostas...")
+    logger.info(f"📊 Modelo configurado: {MODEL_NAME}")
+    logger.info("🌐 Servidor rodando em: http://localhost:5000")
+    logger.info("📱 Interface web disponível na raiz: /")
+    logger.info("🔧 API endpoints: /evaluate, /health, /api")
     
     app.run(debug=True, host='0.0.0.0', port=5000)
