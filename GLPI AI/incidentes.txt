@@ -1,0 +1,104 @@
+1 ->  ticket {
+    Máquina Virtual - Exclusão - RITM0209089
+Máquina Virtual - Exclusão - Após OK do time de Canais, vamos proceder com a exclusão dos servidores alocados para hospedar o Ecommerce legado.
+}
+
+resposta analista {
+    Realizado ajuste no monitoramento, conforme solicitado.
+}
+
+2 -> ticket {
+    PRB0042220 - Análise de Recorrência ConsultaFinanceiroReceber
+Favor realizar análise de Recorrência para o sintoma "Erro" na Instância 172.18.10.150:8888 e 172.18.10.151:8888 com stuck threads
+
+INC0045815
+INC0047061
+INC0048117
+INC0048199
+INC0048425
+INC0048822
+INC0048823
+INC0049093
+}
+
+resposta analista {
+    Microsoft – ServiceIT - 64159 _ Atualizar versão do SMB
+
+Avaliar viabilidade de atualizar para uma versão mais recente do SMB. Caso seja possível, ajustar também os parâmetros de montagem para otimizar o desempenho e reduzir o consumo de I/O.
+
+Data Alto: 10/11/2025
+}
+
+3 -> ticket {
+    PNG-SRVAPP3 - Cliente Rochalog
+Cliente Rochalog solicita a análise detalhada para verificar a intermitência do alerta abaixo:
+
+
+
+PNG-SRVAPP3 - 172.16.0.173 - ROCHALOG | Utilização de memória acima de 95% (Total de 32 GB)
+}
+
+resposta analista {
+    Monitoração
+
+Task#1 - 61600 - Alterar Threshold de monitoração - Concluído em 31.10.2025
+
+Task#2 - 61603 - Solicitar ajuste na monitoração do servidor PNG-SRVAPP3, para que seja exibido os
+ofensores que estão consumindo mais recursos.
+
+Data Alvo: 06/11/2025
+}
+
+4 -> ticket {
+    Lentidão nos processos do SAP ECC Produção
+PRB sendo aberto para verificar qual foi a causa raiz que causou lentidão nos processos do SAP ECC Produção.
+
+ 
+
+Ticket de crise: 19862
+Ticket técnico: 19812
+}
+
+resposta analista {
+    Task #3 - SODIMAC - Análise das queries em execução no momento da ocorrência do problema.
+
+Realizar análise das queries em execução no momento da ocorrência do problema, a fim de identificar possíveis gargalos de desempenho, consultas mal otimizadas ou fatores que tenham contribuído para a instabilidade do sistema.
+}
+
+5 -> ticket {
+    Backlog 4biz #505 - Análise e Ajuste de Alertas de GAP Sync Delay – Hosts MRB (PRD-PSAM-PDB e PRD-PSAM-CBD)
+Prezados,
+
+Foi identificado que, diariamente, entre o período das 02:10 e 02:50, os hosts MRB - PRD-PSAM-PDB e MRB - PRD-PSAM-CBD disparam alertas de GAP sync delay in DR database.
+
+Embora os DBAs sejam acionados e orientem a desconsiderar esses alertas, o comportamento persiste, gerando incidentes recorrentes e demandando ações desnecessárias.
+
+Para resolução da falha, sugerimos as seguintes ações:
+
+Uma breve verificação técnica para confirmar se há algum impacto operacional real por trás desses alertas.
+Uma análise com o objetivo de avaliar a necessidade de ajuste da criticidade dos alertas, ou a programação de uma janela de manutenção no Zabbix, nos períodos informados, caso se mostre adequado.
+
+Agradecemos pela atenção e permanecemos à disposição.
+}
+
+resposta analista {
+    Análise de Eficácia
+
+Data Alvo: 03/11/2025
+
+Análise de eficácia concluída com sucesso.
+}
+
+6 -> ticket {
+    Backlog 4biz #529 - Indisponibilidade do Proxy - Cliente Randon
+Problema aberto para análise de causa raiz relacionada à crise de Indisponibilidade do Proxy - Cliente Randon
+A análise deverá ser realizada pela equipe de Linux e Cloud
+}
+
+resposta analista {
+    Linux - Randon - Ajustar a memória RAM para 16GB e a memória Swap para 8/16GB conforme recomendado pelo fornecedor.
+
+Ajustar a memória para comportar as requisições do Zabbix Proxy.
+
+Atividade a combinar com a Randon, pois dever gerar indisponibilidade da VM e consequentemente do monitoramento.
+}
