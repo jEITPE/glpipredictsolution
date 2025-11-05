@@ -1,6 +1,6 @@
 // Configurações da aplicação
 const CONFIG = {
-    API_BASE_URL: 'http://localhost:5000',
+    API_BASE_URL: window.location.origin, // Usa a URL atual (funciona local e no Render)
     TOAST_DURATION: 4000,
     MIN_CHARS: 10
 };
@@ -215,7 +215,17 @@ async function handleEvaluation() {
         
     } catch (error) {
         console.error('Erro na avaliação:', error);
-        showToast(`Erro na avaliação: ${error.message}`, 'error', 'fas fa-times-circle');
+        let errorMessage = 'Erro desconhecido';
+        
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            errorMessage = 'Erro de conexão com o servidor. Verifique sua internet.';
+        } else if (error.message.includes('Failed to fetch')) {
+            errorMessage = 'Não foi possível conectar com a API. Servidor pode estar offline.';
+        } else {
+            errorMessage = error.message;
+        }
+        
+        showToast(`Erro na avaliação: ${errorMessage}`, 'error', 'fas fa-times-circle');
         
         // Ocultar seção de resultados em caso de erro
         elements.resultsSection.classList.add('hidden');

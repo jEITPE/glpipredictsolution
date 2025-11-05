@@ -9,7 +9,7 @@ import logging
 load_dotenv()
 
 app = Flask(__name__, static_folder='.', static_url_path='')
-CORS(app)  # Permitir requisições do frontend
+CORS(app, origins="*", methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type", "Authorization"])  # CORS mais permissivo
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -183,8 +183,16 @@ def api_info():
         "endpoints": ["/evaluate", "/health"]
     })
 
-@app.route('/evaluate', methods=['POST'])
+@app.route('/evaluate', methods=['POST', 'OPTIONS'])
 def evaluate():
+    # Handle preflight OPTIONS request
+    if request.method == 'OPTIONS':
+        response = jsonify({'status': 'ok'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+        return response
+    
     try:
         data = request.get_json()
         
@@ -229,7 +237,9 @@ def evaluate():
         }
         
         logger.info(f"Avaliação concluída. Score: {evaluation_result['score']}")
-        return jsonify(result)
+        response = jsonify(result)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
         
     except Exception as e:
         logger.error(f"Erro no endpoint /evaluate: {str(e)}")
